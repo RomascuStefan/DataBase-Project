@@ -50,7 +50,7 @@
             // 
             // LogInButton
             // 
-            this.LogInButton.Location = new System.Drawing.Point(452, 523);
+            this.LogInButton.Location = new System.Drawing.Point(191, 210);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(152, 53);
             this.LogInButton.TabIndex = 0;
@@ -61,7 +61,7 @@
             // UserLabel
             // 
             this.UserLabel.AutoSize = true;
-            this.UserLabel.Location = new System.Drawing.Point(367, 196);
+            this.UserLabel.Location = new System.Drawing.Point(106, 86);
             this.UserLabel.Name = "UserLabel";
             this.UserLabel.Size = new System.Drawing.Size(34, 15);
             this.UserLabel.TabIndex = 1;
@@ -70,7 +70,7 @@
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(367, 257);
+            this.PasswordLabel.Location = new System.Drawing.Point(106, 134);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(68, 15);
             this.PasswordLabel.TabIndex = 2;
@@ -78,7 +78,7 @@
             // 
             // UserInputTextBox
             // 
-            this.UserInputTextBox.Location = new System.Drawing.Point(452, 188);
+            this.UserInputTextBox.Location = new System.Drawing.Point(191, 83);
             this.UserInputTextBox.Name = "UserInputTextBox";
             this.UserInputTextBox.Size = new System.Drawing.Size(180, 23);
             this.UserInputTextBox.TabIndex = 3;
@@ -86,7 +86,7 @@
             // 
             // PasswordInputTextBox
             // 
-            this.PasswordInputTextBox.Location = new System.Drawing.Point(452, 249);
+            this.PasswordInputTextBox.Location = new System.Drawing.Point(191, 126);
             this.PasswordInputTextBox.Name = "PasswordInputTextBox";
             this.PasswordInputTextBox.PasswordChar = '*';
             this.PasswordInputTextBox.Size = new System.Drawing.Size(180, 23);
@@ -96,7 +96,7 @@
             // ViewPasswordCheckButton
             // 
             this.ViewPasswordCheckButton.AutoSize = true;
-            this.ViewPasswordCheckButton.Location = new System.Drawing.Point(638, 251);
+            this.ViewPasswordCheckButton.Location = new System.Drawing.Point(377, 128);
             this.ViewPasswordCheckButton.Name = "ViewPasswordCheckButton";
             this.ViewPasswordCheckButton.Size = new System.Drawing.Size(53, 19);
             this.ViewPasswordCheckButton.TabIndex = 5;
@@ -108,15 +108,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 588);
+            this.ClientSize = new System.Drawing.Size(545, 275);
             this.Controls.Add(this.ViewPasswordCheckButton);
             this.Controls.Add(this.PasswordInputTextBox);
             this.Controls.Add(this.UserInputTextBox);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.UserLabel);
             this.Controls.Add(this.LogInButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

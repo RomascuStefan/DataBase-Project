@@ -1,7 +1,9 @@
 namespace ProiectBD
 {
+    
     public partial class Form1 : Form
     {
+        AdminView adminView;
         public Form1()
         {
             InitializeComponent();
@@ -10,15 +12,20 @@ namespace ProiectBD
         private void LogInButton_Click(object sender, EventArgs e)
         {
             if (UserInputTextBox.TextLength == 0)
-                MessageBox.Show("BRAVO FRATE! ai uitat sa pui user", "Popup Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ai uitat sa pui user", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else if (PasswordInputTextBox.TextLength == 0)
-                MessageBox.Show("BRAVO FRATE! ai uitat sa pui parola", "Popup Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ai uitat sa pui parola", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
             {
                 if (UserInputTextBox.Text.Equals("admin") && PasswordInputTextBox.Text.Equals("admin"))
-                    MessageBox.Show("BRAVO FRATE!", "Popup Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                {
+                    adminView = new AdminView();
+                    adminView.FormClosed += SecondView_FormClosed;
+                    adminView.Show();
+                    this.Hide();
+                }
                 else
-                    MessageBox.Show("ESTI VAI MORTII TAI GISCA!", "Popup Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("gresit user/parola", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -45,6 +52,34 @@ namespace ProiectBD
             else
                 this.PasswordInputTextBox.PasswordChar = '*';
 
+        }
+
+        private void SecondView_FormClosed(object sender, EventArgs e)
+        {
+            restoreDefault();
+            this.Show();
+        }
+
+        private void restoreDefault()
+        {
+            RecenterForm();
+            UserInputTextBox.Clear();
+            PasswordInputTextBox.Clear();
+            ViewPasswordCheckButton.Checked = false;
+        }
+
+        private void RecenterForm()
+        {
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            int formWidth = this.Width;
+            int formHeight = this.Height;
+
+            int xPos = (screenWidth - formWidth) / 2;
+            int yPos = (screenHeight - formHeight) / 2;
+
+            this.Location = new Point(xPos, yPos);
         }
     }
 }
