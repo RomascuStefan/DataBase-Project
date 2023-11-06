@@ -63,9 +63,9 @@ namespace ProiectBD
         private void restoreDefault()
         {
             RecenterForm();
-            UserInputTextBox.Clear();
-            PasswordInputTextBox.Clear();
-            ViewPasswordCheckButton.Checked = false;
+            this.UserInputTextBox.Clear();
+            this.PasswordInputTextBox.Clear();
+            this.ViewPasswordCheckButton.Checked = false;
         }
 
         private void RecenterForm()
