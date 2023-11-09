@@ -1,10 +1,11 @@
 namespace ProiectBD
 {
-    
-    public partial class Form1 : Form
+
+    public partial class LogInView : Form
     {
         AdminView adminView;
-        public Form1()
+        UserView userView;
+        public LogInView()
         {
             InitializeComponent();
         }
@@ -24,8 +25,13 @@ namespace ProiectBD
                     adminView.Show();
                     this.Hide();
                 }
-                else
-                    MessageBox.Show("gresit user/parola", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else if (UserInputTextBox.Text.Equals("user") && PasswordInputTextBox.Text.Equals("user"))
+                {
+                    userView = new UserView();
+                    userView.FormClosed += SecondView_FormClosed;
+                    userView.Show();
+                    this.Hide();
+                }
             }
         }
 
@@ -80,6 +86,11 @@ namespace ProiectBD
             int yPos = (screenHeight - formHeight) / 2;
 
             this.Location = new Point(xPos, yPos);
+        }
+
+        private void CreateAccountButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

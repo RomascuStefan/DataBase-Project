@@ -28,148 +28,134 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddPersonToMe = new System.Windows.Forms.Button();
-            this.CreateNewAccount = new System.Windows.Forms.Button();
-            this.ViewListOfPeople = new System.Windows.Forms.Button();
-            this.FullNameLabel = new System.Windows.Forms.Label();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.FullNameTextBox = new System.Windows.Forms.TextBox();
-            this.PhoneNumberLabel = new System.Windows.Forms.Label();
-            this.PhoneNumberTextBox = new System.Windows.Forms.TextBox();
-            this.DoneButton = new System.Windows.Forms.Button();
-            this.StartSessionButton = new System.Windows.Forms.Button();
-            this.PersonListTraining = new System.Windows.Forms.CheckedListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            this.SuspendLayout();
+            AddPersonToMe = new Button();
+            ViewListOfPeople = new Button();
+            FullNameLabel = new Label();
+            fileSystemWatcher1 = new FileSystemWatcher();
+            FullNameTextBox = new TextBox();
+            PhoneNumberLabel = new Label();
+            PhoneNumberTextBox = new TextBox();
+            DoneButton = new Button();
+            StartSessionButton = new Button();
+            PersonListTraining = new CheckedListBox();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
+            SuspendLayout();
             // 
             // AddPersonToMe
             // 
-            this.AddPersonToMe.Location = new System.Drawing.Point(243, 58);
-            this.AddPersonToMe.Name = "AddPersonToMe";
-            this.AddPersonToMe.Size = new System.Drawing.Size(172, 71);
-            this.AddPersonToMe.TabIndex = 0;
-            this.AddPersonToMe.Text = "Add Person";
-            this.AddPersonToMe.UseVisualStyleBackColor = true;
-            this.AddPersonToMe.Click += new System.EventHandler(this.AddPersonButtonClick);
-            // 
-            // CreateNewAccount
-            // 
-            this.CreateNewAccount.Location = new System.Drawing.Point(12, 58);
-            this.CreateNewAccount.Name = "CreateNewAccount";
-            this.CreateNewAccount.Size = new System.Drawing.Size(172, 71);
-            this.CreateNewAccount.TabIndex = 1;
-            this.CreateNewAccount.Text = "Create New Account";
-            this.CreateNewAccount.UseVisualStyleBackColor = true;
-            this.CreateNewAccount.Click += new System.EventHandler(this.CreateNewAccountButtonClick);
+            AddPersonToMe.Location = new Point(29, 58);
+            AddPersonToMe.Name = "AddPersonToMe";
+            AddPersonToMe.Size = new Size(172, 71);
+            AddPersonToMe.TabIndex = 0;
+            AddPersonToMe.Text = "Add Person";
+            AddPersonToMe.UseVisualStyleBackColor = true;
+            AddPersonToMe.Click += AddPersonButtonClick;
             // 
             // ViewListOfPeople
             // 
-            this.ViewListOfPeople.Location = new System.Drawing.Point(487, 58);
-            this.ViewListOfPeople.Name = "ViewListOfPeople";
-            this.ViewListOfPeople.Size = new System.Drawing.Size(172, 71);
-            this.ViewListOfPeople.TabIndex = 2;
-            this.ViewListOfPeople.Text = "View People";
-            this.ViewListOfPeople.UseVisualStyleBackColor = true;
-            this.ViewListOfPeople.Click += new System.EventHandler(this.ViewPeopleButtonClick);
+            ViewListOfPeople.Location = new Point(377, 58);
+            ViewListOfPeople.Name = "ViewListOfPeople";
+            ViewListOfPeople.Size = new Size(172, 71);
+            ViewListOfPeople.TabIndex = 2;
+            ViewListOfPeople.Text = "View People";
+            ViewListOfPeople.UseVisualStyleBackColor = true;
+            ViewListOfPeople.Click += ViewPeopleButtonClick;
             // 
             // FullNameLabel
             // 
-            this.FullNameLabel.AutoSize = true;
-            this.FullNameLabel.Location = new System.Drawing.Point(29, 204);
-            this.FullNameLabel.Name = "FullNameLabel";
-            this.FullNameLabel.Size = new System.Drawing.Size(61, 15);
-            this.FullNameLabel.TabIndex = 3;
-            this.FullNameLabel.Text = "Full Name";
+            FullNameLabel.AutoSize = true;
+            FullNameLabel.Location = new Point(29, 204);
+            FullNameLabel.Name = "FullNameLabel";
+            FullNameLabel.Size = new Size(61, 15);
+            FullNameLabel.TabIndex = 3;
+            FullNameLabel.Text = "Full Name";
             // 
             // fileSystemWatcher1
             // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
+            fileSystemWatcher1.EnableRaisingEvents = true;
+            fileSystemWatcher1.SynchronizingObject = this;
             // 
             // FullNameTextBox
             // 
-            this.FullNameTextBox.Location = new System.Drawing.Point(123, 201);
-            this.FullNameTextBox.Name = "FullNameTextBox";
-            this.FullNameTextBox.Size = new System.Drawing.Size(272, 23);
-            this.FullNameTextBox.TabIndex = 4;
-            this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBoxChanged);
+            FullNameTextBox.Location = new Point(123, 201);
+            FullNameTextBox.Name = "FullNameTextBox";
+            FullNameTextBox.Size = new Size(272, 23);
+            FullNameTextBox.TabIndex = 4;
+            FullNameTextBox.TextChanged += FullNameTextBoxChanged;
             // 
             // PhoneNumberLabel
             // 
-            this.PhoneNumberLabel.AutoSize = true;
-            this.PhoneNumberLabel.Location = new System.Drawing.Point(29, 269);
-            this.PhoneNumberLabel.Name = "PhoneNumberLabel";
-            this.PhoneNumberLabel.Size = new System.Drawing.Size(88, 15);
-            this.PhoneNumberLabel.TabIndex = 5;
-            this.PhoneNumberLabel.Text = "Phone Number";
+            PhoneNumberLabel.AutoSize = true;
+            PhoneNumberLabel.Location = new Point(29, 269);
+            PhoneNumberLabel.Name = "PhoneNumberLabel";
+            PhoneNumberLabel.Size = new Size(88, 15);
+            PhoneNumberLabel.TabIndex = 5;
+            PhoneNumberLabel.Text = "Phone Number";
             // 
             // PhoneNumberTextBox
             // 
-            this.PhoneNumberTextBox.Location = new System.Drawing.Point(123, 266);
-            this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            this.PhoneNumberTextBox.Size = new System.Drawing.Size(272, 23);
-            this.PhoneNumberTextBox.TabIndex = 6;
-            this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBoxChanged);
+            PhoneNumberTextBox.Location = new Point(123, 266);
+            PhoneNumberTextBox.Name = "PhoneNumberTextBox";
+            PhoneNumberTextBox.Size = new Size(272, 23);
+            PhoneNumberTextBox.TabIndex = 6;
+            PhoneNumberTextBox.TextChanged += PhoneNumberTextBoxChanged;
             // 
             // DoneButton
             // 
-            this.DoneButton.Location = new System.Drawing.Point(29, 329);
-            this.DoneButton.Name = "DoneButton";
-            this.DoneButton.Size = new System.Drawing.Size(88, 33);
-            this.DoneButton.TabIndex = 7;
-            this.DoneButton.Text = "DONE";
-            this.DoneButton.UseVisualStyleBackColor = true;
-            this.DoneButton.Click += new System.EventHandler(this.DoneButtonClick);
+            DoneButton.Location = new Point(29, 329);
+            DoneButton.Name = "DoneButton";
+            DoneButton.Size = new Size(88, 33);
+            DoneButton.TabIndex = 7;
+            DoneButton.Text = "DONE";
+            DoneButton.UseVisualStyleBackColor = true;
+            DoneButton.Click += DoneButtonClick;
             // 
             // StartSessionButton
             // 
-            this.StartSessionButton.Location = new System.Drawing.Point(746, 58);
-            this.StartSessionButton.Name = "StartSessionButton";
-            this.StartSessionButton.Size = new System.Drawing.Size(172, 71);
-            this.StartSessionButton.TabIndex = 8;
-            this.StartSessionButton.Text = "Start Training";
-            this.StartSessionButton.UseVisualStyleBackColor = true;
-            this.StartSessionButton.Click += new System.EventHandler(this.StartSessionButtonClick);
+            StartSessionButton.Location = new Point(746, 58);
+            StartSessionButton.Name = "StartSessionButton";
+            StartSessionButton.Size = new Size(172, 71);
+            StartSessionButton.TabIndex = 8;
+            StartSessionButton.Text = "Start Training";
+            StartSessionButton.UseVisualStyleBackColor = true;
+            StartSessionButton.Click += StartSessionButtonClick;
             // 
             // PersonListTraining
             // 
-            this.PersonListTraining.FormattingEnabled = true;
-            this.PersonListTraining.Location = new System.Drawing.Point(746, 175);
-            this.PersonListTraining.Name = "PersonListTraining";
-            this.PersonListTraining.Size = new System.Drawing.Size(172, 238);
-            this.PersonListTraining.TabIndex = 9;
-            this.PersonListTraining.SelectedIndexChanged += new System.EventHandler(this.SelectPersonTraining_SelectedIndexChanged);
+            PersonListTraining.FormattingEnabled = true;
+            PersonListTraining.Location = new Point(746, 175);
+            PersonListTraining.Name = "PersonListTraining";
+            PersonListTraining.Size = new Size(172, 238);
+            PersonListTraining.TabIndex = 9;
+            PersonListTraining.SelectedIndexChanged += SelectPersonTraining_SelectedIndexChanged;
             // 
             // AdminView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 457);
-            this.Controls.Add(this.PersonListTraining);
-            this.Controls.Add(this.StartSessionButton);
-            this.Controls.Add(this.DoneButton);
-            this.Controls.Add(this.PhoneNumberTextBox);
-            this.Controls.Add(this.PhoneNumberLabel);
-            this.Controls.Add(this.FullNameTextBox);
-            this.Controls.Add(this.FullNameLabel);
-            this.Controls.Add(this.ViewListOfPeople);
-            this.Controls.Add(this.CreateNewAccount);
-            this.Controls.Add(this.AddPersonToMe);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "AdminView";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AdminView";
-            this.Load += new System.EventHandler(this.AdminView_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(935, 457);
+            Controls.Add(PersonListTraining);
+            Controls.Add(StartSessionButton);
+            Controls.Add(DoneButton);
+            Controls.Add(PhoneNumberTextBox);
+            Controls.Add(PhoneNumberLabel);
+            Controls.Add(FullNameTextBox);
+            Controls.Add(FullNameLabel);
+            Controls.Add(ViewListOfPeople);
+            Controls.Add(AddPersonToMe);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Name = "AdminView";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "AdminView";
+            Load += AdminView_Load;
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button AddPersonToMe;
-        private Button CreateNewAccount;
         private Button ViewListOfPeople;
         private Label FullNameLabel;
         private FileSystemWatcher fileSystemWatcher1;

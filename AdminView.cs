@@ -12,10 +12,9 @@ namespace ProiectBD
 {
     public partial class AdminView : Form
     {
-        private bool isShownAddCreate = false;
+        private bool isShownAddSection = false;
         private bool isShownPersonList = false;
-        private enum SectionType {Create,Add};
-        private SectionType lastPressed = SectionType.Create;
+       
 
         public AdminView()
         {
@@ -33,17 +32,17 @@ namespace ProiectBD
 
             this.PersonListTraining.Hide();
 
-            isShownAddCreate = false;
+            isShownAddSection = false;
             isShownPersonList = false;
         }
 
-        private void ShowAddCreateSection()
+        private void ShowAddPersonSection()
         {
-            if(!isShownAddCreate)
+            if (!isShownAddSection)
             {
                 HideAll();
 
-                isShownAddCreate = true;
+                isShownAddSection = true;
 
                 this.FullNameLabel.Show();
                 this.FullNameTextBox.Show();
@@ -55,34 +54,31 @@ namespace ProiectBD
 
         private void ShowPersonListTraining()
         {
-            if(!isShownPersonList)
+            if (!isShownPersonList)
             {
                 HideAll();
 
                 isShownPersonList = true;
-
                 this.PersonListTraining.Show();
-
             }
         }
 
         private void AdminView_Load(object sender, EventArgs e)
         {
+       
+            HideAll();
+            ClearTextBoxes();
 
         }
 
         private void AddPersonButtonClick(object sender, EventArgs e)
         {
-            ShowAddCreateSection();
-            lastPressed = SectionType.Add;
+            if(!isShownAddSection)
+                ClearTextBoxes();
+            ShowAddPersonSection();
         }
 
-        private void CreateNewAccountButtonClick(object sender, EventArgs e)
-        {
-            ShowAddCreateSection();
-            ClearTextBoxes();
-            lastPressed = SectionType.Create;
-        }
+ 
 
         private void ClearTextBoxes()
         {
@@ -94,7 +90,7 @@ namespace ProiectBD
         {
             ShowPersonListTraining();
         }
-        
+
         private void ViewPeopleButtonClick(object sender, EventArgs e)
         {
             HideAll();
@@ -106,21 +102,12 @@ namespace ProiectBD
         }
         private void PhoneNumberTextBoxChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void DoneButtonClick(object sender, EventArgs e)
         {
-            switch (lastPressed)
-            {
-                case SectionType.Add:
 
-                    break;
-                case SectionType.Create:
-
-                    break;
-                    
-            }
         }
 
         private void SelectPersonTraining_SelectedIndexChanged(object sender, EventArgs e)
