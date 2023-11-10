@@ -19,7 +19,6 @@ namespace ProiectBD
         public AdminView()
         {
             InitializeComponent();
-            HideAll();
         }
 
         private void HideAll()
@@ -84,6 +83,7 @@ namespace ProiectBD
         {
             this.FullNameTextBox.Clear();
             this.PhoneNumberTextBox.Clear();
+        
         }
 
         private void StartSessionButtonClick(object sender, EventArgs e)
