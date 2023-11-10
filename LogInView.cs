@@ -5,6 +5,7 @@ namespace ProiectBD
     {
         AdminView adminView;
         UserView userView;
+        CreateAccountView createAccountView;
         public LogInView()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace ProiectBD
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void CreateAccountForm_Load(object sender, EventArgs e)
         {
 
         }
@@ -72,6 +73,8 @@ namespace ProiectBD
             this.UserInputTextBox.Clear();
             this.PasswordInputTextBox.Clear();
             this.ViewPasswordCheckButton.Checked = false;
+
+
         }
 
         private void RecenterForm()
@@ -90,6 +93,10 @@ namespace ProiectBD
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
+            createAccountView = new CreateAccountView();
+            createAccountView.FormClosed += SecondView_FormClosed;
+            createAccountView.Show();
+            this.Hide();
 
         }
     }

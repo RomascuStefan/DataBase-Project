@@ -130,7 +130,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += Form1_Load;
+            Load += CreateAccountForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
