@@ -14,7 +14,7 @@ namespace ProiectBD
     {
         private bool isShownAddSection = false;
         private bool isShownPersonList = false;
-       
+
 
         public AdminView()
         {
@@ -30,6 +30,7 @@ namespace ProiectBD
             this.DoneButton.Hide();
 
             this.PersonListTraining.Hide();
+            this.SmallStartButton.Hide();
 
             isShownAddSection = false;
             isShownPersonList = false;
@@ -59,12 +60,13 @@ namespace ProiectBD
 
                 isShownPersonList = true;
                 this.PersonListTraining.Show();
+                this.SmallStartButton.Show();
             }
         }
 
         private void AdminView_Load(object sender, EventArgs e)
         {
-       
+
             HideAll();
             ClearTextBoxes();
 
@@ -72,18 +74,18 @@ namespace ProiectBD
 
         private void AddPersonButtonClick(object sender, EventArgs e)
         {
-            if(!isShownAddSection)
+            if (!isShownAddSection)
                 ClearTextBoxes();
             ShowAddPersonSection();
         }
 
- 
+
 
         private void ClearTextBoxes()
         {
             this.FullNameTextBox.Clear();
             this.PhoneNumberTextBox.Clear();
-        
+
         }
 
         private void StartSessionButtonClick(object sender, EventArgs e)
@@ -111,6 +113,11 @@ namespace ProiectBD
         }
 
         private void SelectPersonTraining_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartButtonSmall_Click(object sender, EventArgs e)
         {
 
         }

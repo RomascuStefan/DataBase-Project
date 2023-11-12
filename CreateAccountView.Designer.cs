@@ -40,7 +40,7 @@
             // 
             // CreateAccountButton
             // 
-            CreateAccountButton.Location = new Point(207, 252);
+            CreateAccountButton.Location = new Point(164, 178);
             CreateAccountButton.Name = "CreateAccountButton";
             CreateAccountButton.Size = new Size(139, 52);
             CreateAccountButton.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             // NameTextbox
             // 
-            NameTextbox.Location = new Point(146, 44);
+            NameTextbox.Location = new Point(106, 22);
             NameTextbox.Name = "NameTextbox";
             NameTextbox.Size = new Size(261, 23);
             NameTextbox.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             // PhoneNumberTextbox
             // 
-            PhoneNumberTextbox.Location = new Point(146, 90);
+            PhoneNumberTextbox.Location = new Point(106, 68);
             PhoneNumberTextbox.Name = "PhoneNumberTextbox";
             PhoneNumberTextbox.Size = new Size(261, 23);
             PhoneNumberTextbox.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             // PasswordTextbox
             // 
-            PasswordTextbox.Location = new Point(146, 136);
+            PasswordTextbox.Location = new Point(106, 114);
             PasswordTextbox.Name = "PasswordTextbox";
             PasswordTextbox.Size = new Size(261, 23);
             PasswordTextbox.TabIndex = 3;
@@ -75,7 +75,7 @@
             // FullNameLabel
             // 
             FullNameLabel.AutoSize = true;
-            FullNameLabel.Location = new Point(79, 47);
+            FullNameLabel.Location = new Point(39, 25);
             FullNameLabel.Name = "FullNameLabel";
             FullNameLabel.Size = new Size(61, 15);
             FullNameLabel.TabIndex = 4;
@@ -84,7 +84,7 @@
             // PhoneNumberLabel
             // 
             PhoneNumberLabel.AutoSize = true;
-            PhoneNumberLabel.Location = new Point(52, 93);
+            PhoneNumberLabel.Location = new Point(12, 71);
             PhoneNumberLabel.Name = "PhoneNumberLabel";
             PhoneNumberLabel.Size = new Size(88, 15);
             PhoneNumberLabel.TabIndex = 5;
@@ -93,7 +93,7 @@
             // PasswordLabel
             // 
             PasswordLabel.AutoSize = true;
-            PasswordLabel.Location = new Point(83, 139);
+            PasswordLabel.Location = new Point(43, 117);
             PasswordLabel.Name = "PasswordLabel";
             PasswordLabel.Size = new Size(57, 15);
             PasswordLabel.TabIndex = 6;
@@ -102,7 +102,7 @@
             // ViewPasswordCheckBox
             // 
             ViewPasswordCheckBox.AutoSize = true;
-            ViewPasswordCheckBox.Location = new Point(413, 138);
+            ViewPasswordCheckBox.Location = new Point(373, 116);
             ViewPasswordCheckBox.Name = "ViewPasswordCheckBox";
             ViewPasswordCheckBox.Size = new Size(51, 19);
             ViewPasswordCheckBox.TabIndex = 7;
@@ -114,7 +114,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(588, 316);
+            ClientSize = new Size(436, 242);
             Controls.Add(ViewPasswordCheckBox);
             Controls.Add(PasswordLabel);
             Controls.Add(PhoneNumberLabel);

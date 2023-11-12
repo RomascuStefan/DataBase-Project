@@ -35,6 +35,7 @@
             SeeEquipmentButton = new Button();
             AvailableEquipmentList = new ListBox();
             StartSoloTrainButton = new Button();
+            OkButton = new Button();
             SuspendLayout();
             // 
             // ChangeTrainer
@@ -106,11 +107,22 @@
             StartSoloTrainButton.UseVisualStyleBackColor = true;
             StartSoloTrainButton.Click += StartSoloTrainButton_Click;
             // 
+            // OkButton
+            // 
+            OkButton.Location = new Point(252, 417);
+            OkButton.Name = "OkButton";
+            OkButton.Size = new Size(46, 26);
+            OkButton.TabIndex = 7;
+            OkButton.Text = "OK";
+            OkButton.UseVisualStyleBackColor = true;
+            OkButton.Click += OkButton_Click;
+            // 
             // UserView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(640, 458);
+            Controls.Add(OkButton);
             Controls.Add(StartSoloTrainButton);
             Controls.Add(AvailableEquipmentList);
             Controls.Add(SeeEquipmentButton);
@@ -134,5 +146,6 @@
         private Button SeeEquipmentButton;
         private ListBox AvailableEquipmentList;
         private Button StartSoloTrainButton;
+        private Button OkButton;
     }
 }

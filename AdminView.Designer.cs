@@ -38,6 +38,7 @@
             DoneButton = new Button();
             StartSessionButton = new Button();
             PersonListTraining = new CheckedListBox();
+            SmallStartButton = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
@@ -129,11 +130,22 @@
             PersonListTraining.TabIndex = 9;
             PersonListTraining.SelectedIndexChanged += SelectPersonTraining_SelectedIndexChanged;
             // 
+            // SmallStartButton
+            // 
+            SmallStartButton.Location = new Point(794, 419);
+            SmallStartButton.Name = "SmallStartButton";
+            SmallStartButton.Size = new Size(84, 31);
+            SmallStartButton.TabIndex = 10;
+            SmallStartButton.Text = "Start";
+            SmallStartButton.UseVisualStyleBackColor = true;
+            SmallStartButton.Click += StartButtonSmall_Click;
+            // 
             // AdminView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(935, 457);
+            Controls.Add(SmallStartButton);
             Controls.Add(PersonListTraining);
             Controls.Add(StartSessionButton);
             Controls.Add(DoneButton);
@@ -165,5 +177,6 @@
         private Button DoneButton;
         private Button StartSessionButton;
         private CheckedListBox PersonListTraining;
+        private Button SmallStartButton;
     }
 }
