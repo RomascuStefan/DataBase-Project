@@ -1,3 +1,6 @@
+using System.Data;
+using System.Data.SQLite;
+
 namespace ProiectBD
 {
 
@@ -6,33 +9,63 @@ namespace ProiectBD
         AdminView adminView;
         UserView userView;
         CreateAccountView createAccountView;
+        string connectionString;
         public LogInView()
         {
             InitializeComponent();
+            connectionString = "Data Source=FinalDB.db;Version=3;";
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            if (UserInputTextBox.TextLength == 0)
-                MessageBox.Show("ai uitat sa pui user", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else if (PasswordInputTextBox.TextLength == 0)
-                MessageBox.Show("ai uitat sa pui parola", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (UserInputTextBox.Text == "" && PasswordInputTextBox.Text == "")
+            {
+                MessageBox.Show("user or password empty", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else
             {
-                if (UserInputTextBox.Text.Equals("admin") && PasswordInputTextBox.Text.Equals("admin"))
+
+                string query = "SELECT type FROM Users WHERE username=@Username AND password=@Password";
+
+                SQLiteConnection conn = new SQLiteConnection(connectionString);
+                conn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Username", UserInputTextBox.Text);
+                cmd.Parameters.AddWithValue("@Password", PasswordInputTextBox.Text);
+
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {
-                    adminView = new AdminView();
-                    adminView.FormClosed += SecondView_FormClosed;
-                    adminView.Show();
-                    this.Hide();
+                    DataTable dataTable = new DataTable();
+                    da.Fill(dataTable);
+
+                    if (dataTable.Rows.Count == 1)
+                    {
+                        string userType = dataTable.Rows[0]["type"].ToString();
+                        if (userType.Equals('C')) //coach
+                        {
+                            adminView = new AdminView();
+                            adminView.FormClosed += SecondView_FormClosed;
+                            adminView.Show();
+                            this.Hide();
+                        }
+                        else if (userType.Equals('M')) // member
+                        {
+                            userView = new UserView();
+                            userView.FormClosed += SecondView_FormClosed;
+                            userView.Show();
+                            this.Hide();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("user or password wrong", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-                else if (UserInputTextBox.Text.Equals("user") && PasswordInputTextBox.Text.Equals("user"))
-                {
-                    userView = new UserView();
-                    userView.FormClosed += SecondView_FormClosed;
-                    userView.Show();
-                    this.Hide();
-                }
+
+
+
+
             }
         }
 

@@ -37,7 +37,7 @@ namespace ProiectBD
         }
 
         private void ChangeTrainerButton_Click(object sender, EventArgs e)
-        {
+        {                                           
             if (!isChangeTrainerShown)
             {
                 HideAll();
