@@ -10,15 +10,17 @@ namespace ProiectBD
         UserView userView;
         CreateAccountView createAccountView;
         string connectionString;
+        SQLiteConnection conn;
         public LogInView()
         {
             InitializeComponent();
             connectionString = "Data Source=FinalDB.db;Version=3;";
+            conn = new SQLiteConnection(connectionString);
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            if (UserInputTextBox.Text == "" && PasswordInputTextBox.Text == "")
+            if (UserInputTextBox.Text == "" || PasswordInputTextBox.Text == "")
             {
                 MessageBox.Show("user or password empty", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -34,38 +36,33 @@ namespace ProiectBD
                 cmd.Parameters.AddWithValue("@Username", UserInputTextBox.Text);
                 cmd.Parameters.AddWithValue("@Password", PasswordInputTextBox.Text);
 
-                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
-                {
-                    DataTable dataTable = new DataTable();
-                    da.Fill(dataTable);
+                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
 
-                    if (dataTable.Rows.Count == 1)
+                DataTable dataTable = new DataTable();
+                da.Fill(dataTable);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    string userType = dataTable.Rows[0]["type"].ToString();
+                    if (userType.Equals("C")) //coach
                     {
-                        string userType = dataTable.Rows[0]["type"].ToString();
-                        if (userType.Equals('C')) //coach
-                        {
-                            adminView = new AdminView();
-                            adminView.FormClosed += SecondView_FormClosed;
-                            adminView.Show();
-                            this.Hide();
-                        }
-                        else if (userType.Equals('M')) // member
-                        {
-                            userView = new UserView();
-                            userView.FormClosed += SecondView_FormClosed;
-                            userView.Show();
-                            this.Hide();
-                        }
+                        adminView = new AdminView();
+                        adminView.FormClosed += SecondView_FormClosed;
+                        adminView.Show();
+                        this.Hide();
                     }
-                    else
+                    else if (userType.Equals("M")) // member
                     {
-                        MessageBox.Show("user or password wrong", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        userView = new UserView();
+                        userView.FormClosed += SecondView_FormClosed;
+                        userView.Show();
+                        this.Hide();
                     }
                 }
-
-
-
-
+                else
+                {
+                    MessageBox.Show("user or password wrong", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -132,5 +129,7 @@ namespace ProiectBD
             this.Hide();
 
         }
+
+
     }
 }
