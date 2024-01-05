@@ -16,6 +16,8 @@ namespace ProiectBD
             InitializeComponent();
             connectionString = "Data Source=FinalDB.db;Version=3;";
             conn = new SQLiteConnection(connectionString);
+            conn = new SQLiteConnection(connectionString);
+            conn.Open();
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -29,8 +31,7 @@ namespace ProiectBD
 
                 string query = "SELECT type FROM Users WHERE username=@Username AND password=@Password";
 
-                SQLiteConnection conn = new SQLiteConnection(connectionString);
-                conn.Open();
+               
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Username", UserInputTextBox.Text);
@@ -123,7 +124,7 @@ namespace ProiectBD
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
-            createAccountView = new CreateAccountView();
+            createAccountView = new CreateAccountView(conn);
             createAccountView.FormClosed += SecondView_FormClosed;
             createAccountView.Show();
             this.Hide();
