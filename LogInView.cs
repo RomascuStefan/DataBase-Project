@@ -11,6 +11,7 @@ namespace ProiectBD
         CreateAccountView createAccountView;
         string connectionString;
         SQLiteConnection conn;
+        public static string LoggedInID;
         public LogInView()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace ProiectBD
             else
             {
 
-                string query = "SELECT type FROM Users WHERE username=@Username AND password=@Password";
+                string query = "SELECT * FROM Users WHERE username=@Username AND password=@Password";
 
                
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
@@ -44,10 +45,11 @@ namespace ProiectBD
 
                 if (dataTable.Rows.Count > 0)
                 {
+                    LoggedInID = dataTable.Rows[0]["ID"].ToString();
                     string userType = dataTable.Rows[0]["type"].ToString();
                     if (userType.Equals("C")) //coach
                     {
-                        adminView = new AdminView();
+                        adminView = new AdminView(conn);
                         adminView.FormClosed += SecondView_FormClosed;
                         adminView.Show();
                         this.Hide();

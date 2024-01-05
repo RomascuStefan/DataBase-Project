@@ -33,12 +33,12 @@
             FullNameLabel = new Label();
             fileSystemWatcher1 = new FileSystemWatcher();
             FullNameTextBox = new TextBox();
-            PhoneNumberLabel = new Label();
-            PhoneNumberTextBox = new TextBox();
             DoneButton = new Button();
             StartSessionButton = new Button();
             PersonListTraining = new CheckedListBox();
             SmallStartButton = new Button();
+            PhoneNumberLabel = new Label();
+            PhoneNumberTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
@@ -84,23 +84,6 @@
             FullNameTextBox.TabIndex = 4;
             FullNameTextBox.TextChanged += FullNameTextBoxChanged;
             // 
-            // PhoneNumberLabel
-            // 
-            PhoneNumberLabel.AutoSize = true;
-            PhoneNumberLabel.Location = new Point(29, 269);
-            PhoneNumberLabel.Name = "PhoneNumberLabel";
-            PhoneNumberLabel.Size = new Size(88, 15);
-            PhoneNumberLabel.TabIndex = 5;
-            PhoneNumberLabel.Text = "Phone Number";
-            // 
-            // PhoneNumberTextBox
-            // 
-            PhoneNumberTextBox.Location = new Point(123, 266);
-            PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            PhoneNumberTextBox.Size = new Size(272, 23);
-            PhoneNumberTextBox.TabIndex = 6;
-            PhoneNumberTextBox.TextChanged += PhoneNumberTextBoxChanged;
-            // 
             // DoneButton
             // 
             DoneButton.Location = new Point(29, 329);
@@ -140,6 +123,23 @@
             SmallStartButton.UseVisualStyleBackColor = true;
             SmallStartButton.Click += StartButtonSmall_Click;
             // 
+            // PhoneNumberLabel
+            // 
+            PhoneNumberLabel.AutoSize = true;
+            PhoneNumberLabel.Location = new Point(29, 269);
+            PhoneNumberLabel.Name = "PhoneNumberLabel";
+            PhoneNumberLabel.Size = new Size(88, 15);
+            PhoneNumberLabel.TabIndex = 5;
+            PhoneNumberLabel.Text = "Phone Number";
+            // 
+            // PhoneNumberTextBox
+            // 
+            PhoneNumberTextBox.Location = new Point(123, 266);
+            PhoneNumberTextBox.Name = "PhoneNumberTextBox";
+            PhoneNumberTextBox.Size = new Size(272, 23);
+            PhoneNumberTextBox.TabIndex = 6;
+            PhoneNumberTextBox.TextChanged += PhoneNumberTextBoxChanged;
+            // 
             // AdminView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -172,11 +172,11 @@
         private Label FullNameLabel;
         private FileSystemWatcher fileSystemWatcher1;
         private TextBox FullNameTextBox;
-        private TextBox PhoneNumberTextBox;
-        private Label PhoneNumberLabel;
         private Button DoneButton;
         private Button StartSessionButton;
         private CheckedListBox PersonListTraining;
         private Button SmallStartButton;
+        private TextBox PhoneNumberTextBox;
+        private Label PhoneNumberLabel;
     }
 }
