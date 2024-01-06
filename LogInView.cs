@@ -56,7 +56,7 @@ namespace ProiectBD
                     }
                     else if (userType.Equals("M")) // member
                     {
-                        userView = new UserView();
+                        userView = new UserView(conn);
                         userView.FormClosed += SecondView_FormClosed;
                         userView.Show();
                         this.Hide();
