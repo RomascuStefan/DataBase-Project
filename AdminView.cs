@@ -14,8 +14,9 @@ namespace ProiectBD
 {
     public partial class AdminView : Form
     {
-        private bool isShownAddSection = false;
-        private bool isShownPersonList = false;
+        private bool isShownAddSection = false; //AD PERSON
+        private bool isShownPersonList = false; //VIEW PEOPLE
+        private bool isShownTraining = false;   //START TRAINING
         SQLiteConnection conn;
 
         public AdminView(SQLiteConnection conn)
@@ -33,10 +34,17 @@ namespace ProiectBD
             this.DoneButton.Hide();
 
             this.PersonListTraining.Hide();
+            for (int i = 0; i < PersonListTraining.Items.Count; i++)
+            {
+                PersonListTraining.SetItemChecked(i, false);
+            }
             this.SmallStartButton.Hide();
+
+            this.dataGridView1.Hide();
 
             isShownAddSection = false;
             isShownPersonList = false;
+            isShownTraining = false;
         }
 
         private void ShowAddPersonSection()
@@ -57,13 +65,24 @@ namespace ProiectBD
 
         private void ShowPersonListTraining()
         {
+            if (!isShownTraining)
+            {
+                HideAll();
+
+                isShownTraining = true;
+
+                this.PersonListTraining.Show();
+                this.SmallStartButton.Show();
+            }
+        }
+
+        private void ShowViewPeople()
+        {
             if (!isShownPersonList)
             {
                 HideAll();
 
-                isShownPersonList = true;
-                this.PersonListTraining.Show();
-                this.SmallStartButton.Show();
+                this.dataGridView1.Show();
             }
         }
 
@@ -94,11 +113,42 @@ namespace ProiectBD
         private void StartSessionButtonClick(object sender, EventArgs e)
         {
             ShowPersonListTraining();
+
+            string selectQuery = "SELECT * FROM Members WHERE SESSION_NUMBER > 0 AND COACH_ID = @CoachID";
+            SQLiteCommand selectCmd = new SQLiteCommand(selectQuery, conn);
+            selectCmd.Parameters.AddWithValue("@CoachID", LogInView.LoggedInID);
+
+            DataTable dataTable = new DataTable();
+            SQLiteDataAdapter adapter = null;
+
+            adapter = new SQLiteDataAdapter(selectCmd);
+            adapter.Fill(dataTable);
+
+            // Display the results in a CheckedListBox
+            PersonListTraining.DataSource = dataTable;
+            PersonListTraining.DisplayMember = "full_name"; 
+            PersonListTraining.ValueMember = "ID";
+
+            adapter?.Dispose();
+
+
         }
 
         private void ViewPeopleButtonClick(object sender, EventArgs e)
         {
-            HideAll();
+            ShowViewPeople();
+            this.isShownPersonList = true;
+
+            string selectQuery = "SELECT ID, full_name 'FULL NAME',session_number 'SESSION NUMBER' FROM Members WHERE COACH_ID = @CoachID";
+
+            SQLiteCommand selectCmd = new SQLiteCommand(selectQuery, conn);
+            selectCmd.Parameters.AddWithValue("@CoachID", LogInView.LoggedInID);
+
+            DataTable dataTable = new DataTable();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(selectCmd);
+
+            adapter.Fill(dataTable);
+            dataGridView1.DataSource = dataTable;
         }
 
         private void FullNameTextBoxChanged(object sender, EventArgs e)
@@ -150,7 +200,7 @@ namespace ProiectBD
 
                         rowsAffected = cmd.ExecuteNonQuery();
                     }
-                    else if(PhoneNumberTextBox.Text.Trim() == "")
+                    else if (PhoneNumberTextBox.Text.Trim() == "")
                     {
                         string updateMember = "UPDATE Members SET COACH_ID= @LoggedInID WHERE full_name = @full_name";
 
@@ -192,6 +242,29 @@ namespace ProiectBD
         }
 
         private void StartButtonSmall_Click(object sender, EventArgs e)
+        {
+            string updateQuery = "UPDATE Members SET SESSION_NUMBER = SESSION_NUMBER - 1 WHERE ID = @MemberID";
+            SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conn);
+            if (PersonListTraining.CheckedItems.Count > 0)
+            {
+                foreach (DataRowView selectedItem in PersonListTraining.CheckedItems)
+                {
+                    int memberID = Convert.ToInt32(selectedItem["ID"]);
+
+                    updateCmd.Parameters.Clear();
+                    updateCmd.Parameters.AddWithValue("@MemberID", memberID);
+                    updateCmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Sessions started for selected members.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                HideAll();
+            }
+            else
+                MessageBox.Show("No members selected.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -35,11 +35,13 @@
             FullNameTextBox = new TextBox();
             DoneButton = new Button();
             StartSessionButton = new Button();
-            PersonListTraining = new CheckedListBox();
             SmallStartButton = new Button();
             PhoneNumberLabel = new Label();
             PhoneNumberTextBox = new TextBox();
+            dataGridView1 = new DataGridView();
+            PersonListTraining = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // AddPersonToMe
@@ -104,15 +106,6 @@
             StartSessionButton.UseVisualStyleBackColor = true;
             StartSessionButton.Click += StartSessionButtonClick;
             // 
-            // PersonListTraining
-            // 
-            PersonListTraining.FormattingEnabled = true;
-            PersonListTraining.Location = new Point(746, 175);
-            PersonListTraining.Name = "PersonListTraining";
-            PersonListTraining.Size = new Size(172, 238);
-            PersonListTraining.TabIndex = 9;
-            PersonListTraining.SelectedIndexChanged += SelectPersonTraining_SelectedIndexChanged;
-            // 
             // SmallStartButton
             // 
             SmallStartButton.Location = new Point(794, 419);
@@ -140,11 +133,41 @@
             PhoneNumberTextBox.TabIndex = 6;
             PhoneNumberTextBox.TextChanged += PhoneNumberTextBoxChanged;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(324, 175);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.ScrollBars = ScrollBars.Vertical;
+            dataGridView1.Size = new Size(289, 238);
+            dataGridView1.TabIndex = 11;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // PersonListTraining
+            // 
+            PersonListTraining.FormattingEnabled = true;
+            PersonListTraining.Location = new Point(746, 175);
+            PersonListTraining.Name = "PersonListTraining";
+            PersonListTraining.Size = new Size(172, 238);
+            PersonListTraining.TabIndex = 9;
+            PersonListTraining.SelectedIndexChanged += SelectPersonTraining_SelectedIndexChanged;
+            // 
             // AdminView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(935, 457);
+            Controls.Add(dataGridView1);
             Controls.Add(SmallStartButton);
             Controls.Add(PersonListTraining);
             Controls.Add(StartSessionButton);
@@ -161,6 +184,7 @@
             Text = "AdminView";
             Load += AdminView_Load;
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -174,9 +198,10 @@
         private TextBox FullNameTextBox;
         private Button DoneButton;
         private Button StartSessionButton;
-        private CheckedListBox PersonListTraining;
         private Button SmallStartButton;
         private TextBox PhoneNumberTextBox;
         private Label PhoneNumberLabel;
+        private DataGridView dataGridView1;
+        private CheckedListBox PersonListTraining;
     }
 }
