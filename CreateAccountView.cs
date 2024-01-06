@@ -18,36 +18,59 @@ namespace ProiectBD
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
-            if (NameTextbox.Text.Trim() == "" || PasswordTextbox.Text.Trim() == "" || PhoneNumberTextbox.Text.Trim() == "")
+            SQLiteTransaction transaction = null;
+
+            try
             {
-                MessageBox.Show("Missing Information", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (FirstNameTextBox.Text.Trim() == "" || PasswordTextbox.Text.Trim() == "" || PhoneNumberTextbox.Text.Trim() == "" || lastNameTextBox.Text.Trim() == "")
+                {
+                    MessageBox.Show("Missing Information", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // Start the transaction
+                    transaction = conn.BeginTransaction();
+
+                    string insertQueryUsers = "INSERT INTO Users (username, password, type) VALUES (@Username, @Password, @Type)";
+                    string insertQueryMembers = "INSERT INTO Members (ID, full_name, phone_number, balance, session_number, coach_id) VALUES ((SELECT MAX(ID) FROM Users), @FullName, @PhoneNumber, 0, 0, NULL)";
+
+                    // User
+                    {
+                        string Username = GetFormattedName(FirstNameTextBox.Text, lastNameTextBox.Text);
+                        SQLiteCommand cmd = new SQLiteCommand(insertQueryUsers, conn, transaction);
+                        cmd.Parameters.AddWithValue("@Username", Username);
+                        cmd.Parameters.AddWithValue("@Password", PasswordTextbox.Text);
+                        cmd.Parameters.AddWithValue("@Type", "M");
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Member
+                    {
+                        string fullname = $"{FirstNameTextBox.Text} {lastNameTextBox.Text}";
+                        SQLiteCommand cmd = new SQLiteCommand(insertQueryMembers, conn, transaction);
+                        cmd.Parameters.AddWithValue("@FullName", fullname);
+                        cmd.Parameters.AddWithValue("@PhoneNumber", PhoneNumberTextbox.Text);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Commit the transaction if everything is successful
+                    transaction.Commit();
+
+                    MessageBox.Show("Account created!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                string insertQueryUsers = "INSERT INTO Users (username, password, type) VALUES (@Username, @Password, @Type)";
-                string insertQueryMembers = "INSERT INTO Members (ID, full_name, phone_number, balance, session_number, coach_id) VALUES ((SELECT MAX(ID) FROM Users), @FullName, @PhoneNumber, 0, 0, NULL)";
+                transaction?.Rollback();
 
-                //user
-                {
-                    string Username = GetFormattedName(NameTextbox.Text);
-                    SQLiteCommand cmd = new SQLiteCommand(insertQueryUsers, conn);
-                    cmd.Parameters.AddWithValue("@Username", Username);
-                    cmd.Parameters.AddWithValue("@Password", PasswordTextbox.Text);
-                    cmd.Parameters.AddWithValue("@Type", "M");
-
-                    cmd.ExecuteNonQuery();
-                }
-                //member
-                {
-                    SQLiteCommand cmd = new SQLiteCommand(insertQueryMembers, conn);
-                    cmd.Parameters.AddWithValue("@FullName", NameTextbox.Text);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", PhoneNumberTextbox.Text);
-
-                    cmd.ExecuteNonQuery();
-                }
-                MessageBox.Show("Account created!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
-
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                transaction?.Dispose();
             }
         }
 
@@ -74,16 +97,25 @@ namespace ProiectBD
                 this.PasswordTextbox.PasswordChar = '*';
         }
 
-        string GetFormattedName(string fullName)
+        string GetFormattedName(string firstName,string lastName)
         {
-            string[] names = fullName.Split(' ');
-            string firstName = names[0].ToLower();
-            string lastName = names[1].ToLower();
-            string formattedName = $"{firstName}.{lastName}";
-
-            return formattedName;
+            return $"{firstName}.{lastName}";
         }
 
+        private void FullNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LastNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
