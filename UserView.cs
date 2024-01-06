@@ -41,7 +41,7 @@ namespace ProiectBD
             this.confirmStartTrainingButton.Hide();
             this.OkButton.Hide();
             this.endTrainingButton.Hide();
-
+            AvailableEquipment.ClearSelected();
 
 
             isChangeTrainerShown = false;
@@ -119,7 +119,7 @@ namespace ProiectBD
                 if (int.TryParse(inputText, out int selectedSessions) && selectedSessions > 0 && selectedSessions <= maxSessions)
                 {
                     int totalPrice = selectedSessions * sessionPrice;
-                    UpdateMemberTable(selectedSessions, totalPrice);
+                    UpdateBalance(selectedSessions, totalPrice);
                     MessageBox.Show($"Successfully bought {selectedSessions} sessions", "Purchase Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -128,7 +128,7 @@ namespace ProiectBD
                 }
             }
         }
-        private void UpdateMemberTable(int boughtSessions, int totalPrice)
+        private void UpdateBalance(int boughtSessions, int totalPrice)
         {
             string updateQuery = "UPDATE Members SET BALANCE = BALANCE - @TotalPrice, SESSION_NUMBER = SESSION_NUMBER + @BoughtSessions WHERE ID = @MemberID";
             SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conn);
@@ -238,55 +238,70 @@ namespace ProiectBD
 
         private void StartTrainingButton_Click(object sender, EventArgs e)
         {
-            if (AvailableEquipment.SelectedItems.Count > 0)
+            if (AvailableEquipment.CheckedItems.Count > 0)
             {
-                List<string> selectedEquipmentList = new List<string>();
+                SQLiteTransaction transaction = conn.BeginTransaction();
 
-                foreach (object selectedItem in AvailableEquipment.SelectedItems)
+                try
                 {
-                    selectedEquipmentList.Add(selectedItem.ToString());
+                    foreach (object checkedItem in AvailableEquipment.CheckedItems)
+                    {
+                        if (checkedItem is DataRowView rowView)
+                        {
+                            // Assuming the name column is in the first position, adjust as needed
+                            string equipmentName = rowView[0].ToString();
 
-                    // -1 available equipment
-                    string updateEquipmentQuery = "UPDATE Equipment SET AVAILABLE_NUMBER = AVAILABLE_NUMBER - 1 WHERE NAME = @EquipmentName";
-                    SQLiteCommand updateEquipmentCmd = new SQLiteCommand(updateEquipmentQuery, conn);
-                    updateEquipmentCmd.Parameters.AddWithValue("@EquipmentName", selectedItem.ToString());
-                    updateEquipmentCmd.ExecuteNonQuery();
+                            // -1 available equipment
+                            string updateEquipmentQuery = "UPDATE Equipment SET AVAILABLE_NUMBER = AVAILABLE_NUMBER - 1 WHERE NAME = @EquipmentName";
+                            SQLiteCommand updateEquipmentCmd = new SQLiteCommand(updateEquipmentQuery, conn, transaction);
+                            updateEquipmentCmd.Parameters.AddWithValue("@EquipmentName", equipmentName);
+                            updateEquipmentCmd.ExecuteNonQuery();
+                            updateEquipmentCmd.Dispose();
+
+                            // Used_Equipment insert
+                            string insertUsedEquipmentQuery = "INSERT INTO Used_Equipment (NAME, MEMBER_ID) VALUES (@EquipmentName, @MemberID)";
+                            SQLiteCommand insertUsedEquipmentCmd = new SQLiteCommand(insertUsedEquipmentQuery, conn, transaction);
+                            insertUsedEquipmentCmd.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
+                            insertUsedEquipmentCmd.Parameters.AddWithValue("@EquipmentName", equipmentName);
+                            insertUsedEquipmentCmd.ExecuteNonQuery();
+                            insertUsedEquipmentCmd.Dispose();
+                        }
+                    }
+
+                    // isTraining=1
+                    string updateIsTrainingQuery = "UPDATE Members SET isTraining = 1 WHERE ID = @MemberID";
+                    SQLiteCommand updateIsTrainingCmd = new SQLiteCommand(updateIsTrainingQuery, conn, transaction);
+                    updateIsTrainingCmd.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
+                    updateIsTrainingCmd.ExecuteNonQuery();
+                    updateIsTrainingCmd.Dispose();
+
+                    // -1 session number
+                    string updateSessionQuery = "UPDATE Members SET SESSION_NUMBER = SESSION_NUMBER - 1 WHERE ID = @MemberID";
+                    SQLiteCommand command = new SQLiteCommand(updateSessionQuery, conn, transaction);
+                    command.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+
+                    transaction.Commit();
+                    MessageBox.Show("Training started successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                // Used_Equipment insert
-                string insertUsedEquipmentQuery = "INSERT INTO Used_Equipment (NAME, MEMBER_ID) VALUES (@EquipmentName, @MemberID)";
-                SQLiteCommand insertUsedEquipmentCmd = new SQLiteCommand(insertUsedEquipmentQuery, conn);
-
-                foreach (string selectedEquipment in selectedEquipmentList)
+                catch (Exception ex)
                 {
-                    insertUsedEquipmentCmd.Parameters.Clear();
-                    insertUsedEquipmentCmd.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
-                    insertUsedEquipmentCmd.Parameters.AddWithValue("@EquipmentName", selectedEquipment);
-                    insertUsedEquipmentCmd.ExecuteNonQuery();
+                    transaction.Rollback();
+                    MessageBox.Show($"Error starting training: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                // isTraining=1
-                string updateIsTrainingQuery = "UPDATE Members SET isTraining = 1 WHERE ID = @MemberID";
-                SQLiteCommand updateIsTrainingCmd = new SQLiteCommand(updateIsTrainingQuery, conn);
-                updateIsTrainingCmd.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
-                updateIsTrainingCmd.ExecuteNonQuery();
-
-                // -1 session number
-                string updateSessionQuery = "UPDATE Members SET SESSION_NUMBER = SESSION_NUMBER - 1 WHERE ID = @MemberID";
-                SQLiteCommand command = new SQLiteCommand(updateSessionQuery, conn);
-                command.Parameters.AddWithValue("@MemberID", LogInView.LoggedInID);
-                command.ExecuteNonQuery();
-
-                MessageBox.Show("Training started successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                finally
+                {
+                    transaction.Dispose();
+                }
             }
             else
             {
                 MessageBox.Show("Please select at least one equipment before starting training.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             LoadView();
         }
-
-
 
         private void AvailableEquipmentListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -304,6 +319,7 @@ namespace ProiectBD
 
             AvailableEquipment.DataSource = dataTable;
             AvailableEquipment.DisplayMember = "NAME";
+
         }
 
         private void LoadView()
