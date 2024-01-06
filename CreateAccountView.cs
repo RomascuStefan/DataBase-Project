@@ -28,7 +28,6 @@ namespace ProiectBD
                 }
                 else
                 {
-                    // Start the transaction
                     transaction = conn.BeginTransaction();
 
                     string insertQueryUsers = "INSERT INTO Users (username, password, type) VALUES (@Username, @Password, @Type)";
@@ -55,7 +54,6 @@ namespace ProiectBD
                         cmd.ExecuteNonQuery();
                     }
 
-                    // Commit the transaction if everything is successful
                     transaction.Commit();
 
                     MessageBox.Show("Account created!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
